@@ -1,0 +1,91 @@
+-- CreateTable
+CREATE TABLE `OrdreFabrication` (
+    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `Numero` VARCHAR(191) NOT NULL,
+    `Article` VARCHAR(191) NOT NULL,
+    `Quantite_Objectif` INTEGER NOT NULL DEFAULT 0,
+    `Of_Prod` BOOLEAN NOT NULL DEFAULT false,
+    `Debit` INTEGER NOT NULL DEFAULT 0,
+    `Recette` JSON NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`Id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Consommation` (
+    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `poste` ENUM('Matin', 'Soir', 'Nuit') NOT NULL,
+    `Date` DATETIME(3) NOT NULL,
+    `Of` INTEGER NOT NULL,
+    `Consommation` JSON NOT NULL,
+
+    PRIMARY KEY (`Id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Historique` (
+    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `Date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `Poste` ENUM('Matin', 'Soir', 'Nuit') NOT NULL,
+    `Of` VARCHAR(191) NULL,
+    `QP` INTEGER NOT NULL DEFAULT 0,
+    `TQ` DOUBLE NULL DEFAULT 0,
+    `TP` DOUBLE NULL DEFAULT 0,
+    `TD` DOUBLE NULL DEFAULT 0,
+    `Debit` DOUBLE NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`Id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `HistoriqueTemp` (
+    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `Date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `Poste` ENUM('Matin', 'Soir', 'Nuit') NOT NULL,
+    `Of` VARCHAR(191) NULL,
+    `QP` INTEGER NOT NULL DEFAULT 0,
+    `TQ` DOUBLE NULL DEFAULT 0,
+    `TP` DOUBLE NULL DEFAULT 0,
+    `TD` DOUBLE NULL DEFAULT 0,
+    `Debit` DOUBLE NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`Id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Arret` (
+    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `Date_Debut` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `Duree` INTEGER NULL,
+    `Poste` ENUM('Matin', 'Soir', 'Nuit') NOT NULL,
+    `Of` VARCHAR(191) NULL,
+    `Cause` VARCHAR(191) NULL,
+    `Operateur` VARCHAR(191) NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`Id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `NonConforme` (
+    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `Date` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `Poste` ENUM('Matin', 'Soir', 'Nuit') NOT NULL,
+    `Of` VARCHAR(191) NULL,
+    `Operateur` VARCHAR(191) NULL,
+    `Quantite` INTEGER NOT NULL DEFAULT 0,
+    `Type` VARCHAR(191) NOT NULL,
+    `deleted` BOOLEAN NOT NULL DEFAULT false,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`Id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Consommation` ADD CONSTRAINT `Consommation_Of_fkey` FOREIGN KEY (`Of`) REFERENCES `OrdreFabrication`(`Id`) ON DELETE RESTRICT ON UPDATE CASCADE;
