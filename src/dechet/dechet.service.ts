@@ -3,15 +3,15 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateNcDto } from './dto/create-nc.dto';
-import { UpdateNcDto } from './dto/update-nc.dto';
+import { CreateDechetDto } from './dto/create-dechet.dto';
+import { UpdateDechetDto } from './dto/update-dechet.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { getPoste } from 'src/utils';
 
 @Injectable()
-export class NcService {
+export class DechetService {
   constructor(private readonly prisma: PrismaService) {}
-  async create(createNcDto: CreateNcDto) {
+  async create(createDechetDto: CreateDechetDto) {
     try {
       const of = await this.prisma.ordreFabrication.findFirst({
         where: { Of_Prod: true },
@@ -21,9 +21,9 @@ export class NcService {
         throw new NotFoundException('Aucune ordre de fabrication en cours');
       }
 
-      await this.prisma.nonConforme.create({
+      await this.prisma.dechet.create({
         data: {
-          ...createNcDto,
+          ...createDechetDto,
           Of: of.Numero,
           Poste: getPoste(),
         },
@@ -37,7 +37,7 @@ export class NcService {
 
   async findAll() {
     try {
-      return await this.prisma.nonConforme.findMany({
+      return await this.prisma.dechet.findMany({
         orderBy: {
           createdAt: 'desc',
         },
@@ -50,17 +50,17 @@ export class NcService {
 
   async findOne(id: number) {
     try {
-      const nc = await this.prisma.nonConforme.findUnique({
+      const dechet = await this.prisma.dechet.findUnique({
         where: {
           Id: id,
         },
       });
 
-      if (!nc) {
-        throw new NotFoundException(`Non-conformite #${id} introuvable`);
+      if (!dechet) {
+        throw new NotFoundException(`Dechet #${id} introuvable`);
       }
 
-      return nc;
+      return dechet;
     } catch (error) {
       throw error instanceof NotFoundException
         ? error
@@ -68,23 +68,23 @@ export class NcService {
     }
   }
 
-  async update(id: number, updateNcDto: UpdateNcDto) {
+  async update(id: number, updateDechetDto: UpdateDechetDto) {
     try {
-      const nc = await this.prisma.nonConforme.findUnique({
+      const dechet = await this.prisma.dechet.findUnique({
         where: {
           Id: id,
         },
       });
 
-      if (!nc) {
-        throw new NotFoundException(`Non-conforme #${id} introuvable`);
+      if (!dechet) {
+        throw new NotFoundException(`Dechet #${id} introuvable`);
       }
 
-      await this.prisma.nonConforme.update({
+      await this.prisma.dechet.update({
         where: {
           Id: id,
         },
-        data: updateNcDto,
+        data: updateDechetDto,
       });
     } catch (error) {
       throw error instanceof NotFoundException
@@ -95,17 +95,17 @@ export class NcService {
 
   async remove(id: number) {
     try {
-      const nc = await this.prisma.nonConforme.findUnique({
+      const dechet = await this.prisma.dechet.findUnique({
         where: {
           Id: id,
         },
       });
 
-      if (!nc) {
-        throw new NotFoundException(`Non-conforme #${id} introuvable`);
+      if (!dechet) {
+        throw new NotFoundException(`Dechet #${id} introuvable`);
       }
 
-      await this.prisma.nonConforme.update({
+      await this.prisma.dechet.update({
         where: {
           Id: id,
         },

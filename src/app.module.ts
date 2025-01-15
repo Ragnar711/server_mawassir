@@ -5,9 +5,10 @@ import { RealtimeModule } from './realtime/realtime.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { OfModule } from './of/of.module';
 import { NcModule } from './nc/nc.module';
+import { DechetModule } from './dechet/dechet.module';
 
 @Module({
-  imports: [RealtimeModule, PrismaModule, OfModule, NcModule],
+  imports: [RealtimeModule, PrismaModule, OfModule, NcModule, DechetModule],
   controllers: [AppController],
   providers: [AppService],
 })

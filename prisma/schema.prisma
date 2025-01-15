@@ -86,3 +86,17 @@ model NonConforme {
   createdAt DateTime        @default(now())
   updatedAt DateTime        @default(now())
 }
+
+
+model Dechet {
+  Id        Int             @id @default(autoincrement())
+  Date      DateTime        @default(now())
+  Poste     Poste
+  Of        String?
+  Operateur String?
+  Quantite  Int             @default(0)
+  Type      String
+  deleted   Boolean         @default(false)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now())
+}
