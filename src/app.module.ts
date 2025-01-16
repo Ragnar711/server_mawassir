@@ -7,9 +7,11 @@ import { OfModule } from './of/of.module';
 import { NcModule } from './nc/nc.module';
 import { DechetModule } from './dechet/dechet.module';
 import { HistoriqueModule } from './historique/historique.module';
+import { ManagementModule } from './management/management.module';
+import { MachineModule } from './machine/machine.module';
 
 @Module({
-  imports: [RealtimeModule, PrismaModule, OfModule, NcModule, DechetModule, HistoriqueModule],
+  imports: [RealtimeModule, PrismaModule, OfModule, NcModule, DechetModule, HistoriqueModule, ManagementModule, MachineModule],
   controllers: [AppController],
   providers: [AppService],
 })
