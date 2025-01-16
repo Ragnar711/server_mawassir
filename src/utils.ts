@@ -9,3 +9,12 @@ export const getPoste = () => {
     return 'Nuit';
   }
 };
+
+export const formatTime = (seconds: number) => {
+  const date = new Date(0);
+  date.setSeconds(seconds);
+
+  const pad = (n: number) => (n < 10 ? '0' + n : n);
+
+  return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+};
