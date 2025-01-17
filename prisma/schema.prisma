@@ -20,7 +20,7 @@ model OrdreFabrication {
   Article           String
   Quantite_Objectif Int            @default(0)
   Of_Prod           Boolean        @default(false)
-  Debit           Int            @default(0)
+  Debit             Int            @default(0)
   Recette           Json
   deleted           Boolean        @default(false)
   createdAt         DateTime       @default(now())
@@ -38,65 +38,67 @@ model Consommation {
 }
 
 model Historique {
-  Id      Int             @id @default(autoincrement())
-  Date    DateTime        @default(now())
-  Poste   Poste
-  Of      String?
-  QP      Int             @default(0)
-  TQ      Float?          @default(0)
-  TP      Float?          @default(0)
-  TD      Float?          @default(0)
-  Debit Float           @default(0)
+  Id    Int      @id @default(autoincrement())
+  Date  DateTime @default(now())
+  Poste Poste
+  Of    String?
+  QP    Int      @default(0)
+  TQ    Float?   @default(0)
+  TP    Float?   @default(0)
+  TD    Float?   @default(0)
+  Debit Float    @default(0)
 }
 
 model HistoriqueTemp {
-  Id      Int             @id @default(autoincrement())
-  Date    DateTime        @default(now())
-  Poste   Poste
-  Of      String?
-  QP      Int             @default(0)
-  TQ      Float?          @default(0)
-  TP      Float?          @default(0)
-  TD      Float?          @default(0)
-  Debit Float           @default(0)
+  Id    Int      @id @default(autoincrement())
+  Date  DateTime @default(now())
+  Poste Poste
+  Of    String?
+  QP    Int      @default(0)
+  TQ    Float?   @default(0)
+  TP    Float?   @default(0)
+  TD    Float?   @default(0)
+  Debit Float    @default(0)
+  VE    Float    @default(0)
+  VT    Float    @default(0)
+  PM    Float    @default(0)
 }
 
 model Arret {
-  Id         Int             @id @default(autoincrement())
-  Date_Debut DateTime        @default(now())
+  Id         Int      @id @default(autoincrement())
+  Date_Debut DateTime @default(now())
   Duree      Int?
   Poste      Poste
   Of         String?
   Cause      String?
   Operateur  String?
-  deleted    Boolean         @default(false)
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @default(now())
+  deleted    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
 model NonConforme {
-  Id        Int             @id @default(autoincrement())
-  Date      DateTime        @default(now())
+  Id        Int      @id @default(autoincrement())
+  Date      DateTime @default(now())
   Poste     Poste
   Of        String?
   Operateur String?
-  Quantite  Int             @default(0)
+  Quantite  Int      @default(0)
   Type      String
-  deleted   Boolean         @default(false)
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now())
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
 
-
 model Dechet {
-  Id        Int             @id @default(autoincrement())
-  Date      DateTime        @default(now())
+  Id        Int      @id @default(autoincrement())
+  Date      DateTime @default(now())
   Poste     Poste
   Of        String?
   Operateur String?
-  Quantite  Int             @default(0)
+  Quantite  Int      @default(0)
   Type      String
-  deleted   Boolean         @default(false)
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now())
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
