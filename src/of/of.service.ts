@@ -6,6 +6,7 @@ import {
 import { CreateOfDto } from './dto/create-of.dto';
 import { UpdateOfDto } from './dto/update-of.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import axios from 'axios';
 
 @Injectable()
 export class OfService {
@@ -48,6 +49,10 @@ export class OfService {
           Of_Prod: false,
         },
       });
+
+      await axios.post(
+        `http://localhost:5000/reset_quantity/${process.env.MACHINE}`,
+      );
     } catch (error) {
       throw new InternalServerErrorException(`Error: ${error.message}`);
     }
