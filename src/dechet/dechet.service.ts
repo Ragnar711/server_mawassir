@@ -17,27 +17,22 @@ export class DechetService {
         where: { Of_Prod: true },
       });
 
-      if (!of) {
-        throw new NotFoundException('Aucune ordre de fabrication en cours');
-      }
-
       await this.prisma.dechet.create({
         data: {
           ...createDechetDto,
-          Of: of.Numero,
+          Of: of?.Numero ?? null,
           Poste: getPoste(),
         },
       });
     } catch (error) {
-      throw error instanceof NotFoundException
-        ? error
-        : new InternalServerErrorException(`Error: ${error.message}`);
+      throw new InternalServerErrorException(`Error: ${error.message}`);
     }
   }
 
   async findAll() {
     try {
       return await this.prisma.dechet.findMany({
+        where: { deleted: false },
         orderBy: {
           createdAt: 'desc',
         },
