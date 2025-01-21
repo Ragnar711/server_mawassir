@@ -169,7 +169,7 @@ export class HistoriqueService {
         ([key, value], index) => ({
           key: index + 1,
           Date: value.date,
-          'Post/heure': key,
+          'Poste/heure': key,
           'N°OF': value.NOF,
           'Qté Prod OK': value.QP ?? 0,
           'Qté NC': value.QNC ?? 0,

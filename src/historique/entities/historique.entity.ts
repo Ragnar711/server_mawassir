@@ -1,7 +1,7 @@
 export class Historique {
   key: number;
   Date: string;
-  'Post/heure': string;
+  'Poste/heure': string;
   'N°OF': string | null;
   'Qté Prod OK': number;
   'Qté NC': number;
