@@ -17,6 +17,10 @@ export class MachineService {
         },
       });
 
+      if (!OF) {
+        return [];
+      }
+
       const KPIs = await this.prisma.historiqueTemp.findFirst({
         select: {
           TP: true,
@@ -26,16 +30,9 @@ export class MachineService {
           VE: true,
           VT: true,
           PM: true,
+          QP: true,
         },
-        where: { Date: { gte: last24Hours }, Of: OF.Numero },
-        orderBy: {
-          Date: 'desc',
-        },
-      });
-
-      const QP = await this.prisma.historiqueTemp.findFirst({
-        select: { QP: true },
-        where: { Date: { gte: last24Hours }, Of: OF.Numero },
+        where: { Date: { gte: last24Hours } },
         orderBy: {
           Date: 'desc',
         },
@@ -61,13 +58,13 @@ export class MachineService {
         },
 
         OF: {
-          NOF: OF.Numero ?? '',
-          Article: OF.Article ?? '',
-          QO: OF.Quantite_Objectif ?? 0,
-          QP: QP?.QP ?? 0,
-          QNC: QNC._sum?.Quantite ?? 0,
-          QD: QD._sum?.Quantite ?? 0,
-          Debit: OF.Debit ?? 0,
+          NOF: OF?.Numero ?? '',
+          Article: OF?.Article ?? '',
+          QO: OF?.Quantite_Objectif ?? 0,
+          QP: KPIs?.QP ?? 0,
+          QNC: QNC._sum.Quantite,
+          QD: QD._sum.Quantite,
+          Debit: OF?.Debit ?? 0,
         },
 
         Params: {
